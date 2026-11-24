@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import '../core/utils/formatos.dart';
 import '../core/utils/validadores.dart';
 import '../core/widgets/mensajes.dart';
+import '../modules/catalogo/models/repuesto.dart';
 import '../modules/catalogo/services/catalogo_service.dart';
 import '../modules/cuentas/services/permisos.dart';
 import '../modules/ordenes/models/linea_cotizacion.dart';
@@ -17,6 +18,7 @@ import '../theme/industry_theme.dart';
 import '../widgets/avance_timeline.dart';
 import '../widgets/comunes.dart';
 import '../widgets/estado_tag.dart';
+import '../widgets/foto_repuesto.dart';
 import '../widgets/iconos_taller.dart';
 import '../widgets/ind_field.dart';
 import '../widgets/ind_page.dart';
@@ -228,7 +230,11 @@ class _OrdenDetalleScreenState extends State<OrdenDetalleScreen> {
                     Padding(
                       padding: const EdgeInsets.only(bottom: 12),
                       child: Row(crossAxisAlignment: CrossAxisAlignment.start, children: [
-                        IconoMosaico(l.esServicio ? Icons.build_rounded : Icons.settings_rounded, tamano: 36),
+                        switch (l.esServicio ? null : CatalogoService.instancia.catalogo.repuesto(l.refId)) {
+                          final Repuesto r => FotoRepuesto(r, tamano: 40),
+                          null => IconoMosaico(l.esServicio ? Icons.build_rounded : Icons.settings_rounded,
+                              tamano: 40, color: l.esServicio ? Ind.colorCatalogo : Ind.colorInventario),
+                        },
                         const SizedBox(width: 10),
                         Expanded(
                           child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -260,8 +266,7 @@ class _OrdenDetalleScreenState extends State<OrdenDetalleScreen> {
             ]),
             TarjetaFila(
               icono: o.etiquetaMetodo == null ? Icons.payments_outlined : iconoMetodoPago(o.metodoPago ?? ''),
-              colorIcono: o.estaPagada ? Ind.exito : Ind.accent,
-              fondoIcono: o.estaPagada ? Ind.exitoFondo : Ind.a100,
+              colorIcono: Ind.colorIngresos,
               titulo: 'Cobro',
               subtitulo: [
                 if (o.etiquetaMetodo != null)

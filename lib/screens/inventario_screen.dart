@@ -12,7 +12,7 @@ import '../theme/blueprint.dart';
 import '../theme/industry_theme.dart';
 import '../widgets/comunes.dart';
 import '../widgets/estado_tag.dart';
-import '../widgets/iconos_taller.dart';
+import '../widgets/foto_repuesto.dart';
 import '../widgets/ind_page.dart';
 import '../widgets/kpi_card.dart';
 import '../widgets/stock_bar.dart';
@@ -103,12 +103,7 @@ class _InventarioScreenState extends State<InventarioScreen> {
       titulo: r.nombre,
       children: [
         Row(children: [
-          IconoMosaico(
-            iconoRepuesto(r),
-            tamano: 56,
-            color: r.critico ? Ind.peligro : Ind.accent,
-            fondo: r.critico ? Ind.peligroFondo : Ind.a100,
-          ),
+          FotoRepuesto(r, tamano: 96, alerta: r.critico),
           const SizedBox(width: 14),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -187,9 +182,11 @@ class _InventarioScreenState extends State<InventarioScreen> {
                 TarjetaFila(
                   onTap: () => _acciones(r, puedeEditar),
                   semanticLabel: '${r.nombre}, stock ${r.stock}',
-                  icono: iconoRepuesto(r),
-                  colorIcono: !r.activo ? Ind.n500 : (r.critico ? Ind.peligro : Ind.accent),
-                  fondoIcono: !r.activo ? Ind.n100 : (r.critico ? Ind.peligroFondo : Ind.a100),
+                  // Descontinuado: la foto se ve apagada.
+                  inicio: Opacity(
+                    opacity: r.activo ? 1 : 0.45,
+                    child: FotoRepuesto(r, tamano: 56, alerta: r.activo && r.critico),
+                  ),
                   titulo: r.nombre,
                   subtitulo: '${r.codigo} · stock ${r.stock} (mín. ${r.minimo})',
                   pie: Text(formatoCentimos(r.precioCentimos), style: Ind.heading(14.5, color: Ind.accent)),

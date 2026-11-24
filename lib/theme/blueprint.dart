@@ -227,7 +227,7 @@ class IconoMosaico extends StatelessWidget {
     super.key,
     this.tamano = 44,
     this.color = Ind.accent,
-    this.fondo = Ind.a100,
+    this.fondo = Ind.fondoIcono,
   });
 
   final IconData icono;

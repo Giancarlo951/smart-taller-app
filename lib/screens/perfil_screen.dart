@@ -101,7 +101,7 @@ class PerfilScreen extends StatelessWidget {
                   ),
                   child: Row(
                     children: [
-                      IconoMosaico(icono, tamano: 34),
+                      IconoMosaico(icono, tamano: 34, color: Ind.colorPerfil),
                       const SizedBox(width: 12),
                       Expanded(child: Text(label, style: Ind.body(13.5, height: 1.3))),
                       const SizedBox(width: 12),

@@ -4,14 +4,22 @@ import '../theme/blueprint.dart';
 import '../theme/industry_theme.dart';
 
 /// Indicador: valor grande y etiqueta; con [icono], el ícono va a la
-/// izquierda en un mosaico azul claro.
+/// izquierda, en [colorIcono] sobre un mosaico gris claro.
 class KpiCard extends StatelessWidget {
-  const KpiCard({super.key, required this.valor, required this.label, this.valorSize = 28, this.icono});
+  const KpiCard({
+    super.key,
+    required this.valor,
+    required this.label,
+    this.valorSize = 28,
+    this.icono,
+    this.colorIcono = Ind.accent,
+  });
 
   final String valor;
   final String label;
   final double valorSize;
   final IconData? icono;
+  final Color colorIcono;
 
   @override
   Widget build(BuildContext context) {
@@ -34,7 +42,7 @@ class KpiCard extends StatelessWidget {
             ? textos
             : Row(
                 children: [
-                  IconoMosaico(icono!, tamano: 40),
+                  IconoMosaico(icono!, tamano: 40, color: colorIcono),
                   const SizedBox(width: 12),
                   Expanded(child: textos),
                 ],
@@ -46,13 +54,14 @@ class KpiCard extends StatelessWidget {
 
 /// Rejilla de KPIs con 12 px de separación: dos columnas en celular y, con
 /// espacio de sobra (≥ 640 px) y 4 o más indicadores, cuatro columnas.
-/// [iconos], si se da, va en el mismo orden que [items].
+/// [iconos] y [colores], si se dan, van en el mismo orden que [items].
 class KpiGrid extends StatelessWidget {
-  const KpiGrid({super.key, required this.items, this.valorSize = 28, this.iconos});
+  const KpiGrid({super.key, required this.items, this.valorSize = 28, this.iconos, this.colores});
 
   final List<(String, String)> items;
   final double valorSize;
   final List<IconData>? iconos;
+  final List<Color>? colores;
 
   @override
   Widget build(BuildContext context) {
@@ -74,6 +83,7 @@ class KpiGrid extends StatelessWidget {
                           label: items[j].$2,
                           valorSize: valorSize,
                           icono: iconos != null && j < iconos!.length ? iconos![j] : null,
+                          colorIcono: colores != null && j < colores!.length ? colores![j] : Ind.accent,
                         )
                       : const SizedBox.shrink(),
                 ),

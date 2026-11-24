@@ -15,6 +15,7 @@ import '../theme/blueprint.dart';
 import '../theme/industry_theme.dart';
 import '../widgets/comunes.dart';
 import '../widgets/estado_tag.dart';
+import '../widgets/foto_repuesto.dart';
 import '../widgets/iconos_taller.dart';
 import '../widgets/stock_bar.dart';
 import '../widgets/tarjeta_fila.dart';
@@ -243,6 +244,7 @@ class _FilaServicio extends StatelessWidget {
     return TarjetaFila(
       onTap: onTap,
       icono: iconoServicio(servicio),
+      colorIcono: Ind.colorCatalogo,
       titulo: servicio.nombre,
       subtitulo: servicio.subtitulo,
       pie: Wrap(
@@ -283,7 +285,7 @@ class _FilaRepuesto extends StatelessWidget {
     return TarjetaFila(
       onTap: onTap ?? () => mostrarMensaje(ScaffoldMessenger.of(context), '${repuesto.nombre} está agotado', error: true),
       semanticLabel: '${repuesto.nombre}, stock ${repuesto.stock}',
-      icono: iconoRepuesto(repuesto),
+      inicio: FotoRepuesto(repuesto, tamano: 56, alerta: alerta),
       titulo: repuesto.nombre,
       subtitulo: '${repuesto.codigo} · stock ${repuesto.stock}',
       pie: Wrap(
@@ -342,7 +344,7 @@ class _DetalleServicioState extends State<_DetalleServicio> {
       titulo: s.nombre,
       children: [
         Row(children: [
-          IconoMosaico(iconoServicio(s), tamano: 56),
+          IconoMosaico(iconoServicio(s), tamano: 56, color: Ind.colorCatalogo),
           const SizedBox(width: 14),
           Expanded(
             child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [

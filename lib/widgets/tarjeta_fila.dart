@@ -20,7 +20,7 @@ class TarjetaFila extends StatelessWidget {
     this.onTap,
     this.semanticLabel,
     this.colorIcono = Ind.accent,
-    this.fondoIcono = Ind.a100,
+    this.fondoIcono = Ind.fondoIcono,
   });
 
   final String titulo;
@@ -77,19 +77,20 @@ class TarjetaFila extends StatelessWidget {
 
 /// Círculo azul claro con las iniciales del nombre.
 class AvatarIniciales extends StatelessWidget {
-  const AvatarIniciales(this.nombre, {super.key, this.tamano = 44});
+  const AvatarIniciales(this.nombre, {super.key, this.tamano = 44, this.color = Ind.accent});
 
   final String nombre;
   final double tamano;
+  final Color color;
 
   @override
   Widget build(BuildContext context) {
     return Container(
       width: tamano,
       height: tamano,
-      decoration: const BoxDecoration(color: Ind.a100, shape: BoxShape.circle),
+      decoration: const BoxDecoration(color: Ind.fondoIcono, shape: BoxShape.circle),
       alignment: Alignment.center,
-      child: Text(iniciales(nombre), style: Ind.heading(tamano * 0.36, height: 1, color: Ind.accent)),
+      child: Text(iniciales(nombre), style: Ind.heading(tamano * 0.36, height: 1, color: color)),
     );
   }
 }

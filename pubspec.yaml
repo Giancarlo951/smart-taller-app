@@ -68,6 +68,13 @@ flutter:
   # the material Icons class.
   uses-material-design: true
 
+  # Fotos de los repuestos (512 × 512, fondo blanco), una por código:
+  # assets/repuestos/LUB-1040.png. Si falta una, la app muestra el ícono.
+  assets:
+    - assets/repuestos/
+    # Logotipo (logo.png) y símbolo "st" (marca_st.png), fondo transparente.
+    - assets/marca/
+
   # To add assets to your application, add an assets section, like this:
   # assets:
   #   - images/a_dot_burr.jpeg

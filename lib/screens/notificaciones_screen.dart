@@ -62,8 +62,8 @@ class _NotificacionesScreenState extends State<NotificacionesScreen> {
                     IconoMosaico(
                       iconoAviso(a.tipo),
                       tamano: 40,
-                      color: a.tipo == TipoAviso.stock ? Ind.peligro : Ind.accent,
-                      fondo: a.tipo == TipoAviso.stock ? Ind.peligroFondo : Ind.card,
+                      color: colorAviso(a.tipo),
+                      fondo: Ind.card,
                     ),
                     const SizedBox(width: 12),
                     Expanded(

@@ -72,7 +72,7 @@ class _ClientesScreenState extends State<ClientesScreen> {
                 TarjetaFila(
                   onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (_) => ClienteDetalleScreen(clienteId: c.id))),
                   semanticLabel: c.nombre,
-                  inicio: AvatarIniciales(c.nombre),
+                  inicio: AvatarIniciales(c.nombre, color: Ind.colorClientes),
                   titulo: c.nombre,
                   subtitulo: '${c.documento} · ${c.telefono} · ${plural(c.servicios, 'servicio', 'servicios')}',
                   trailing: EstadoTag(c.esEmpresa ? 'Empresa' : 'Persona', variant: c.esEmpresa ? TagVariant.accent : TagVariant.neutral),
@@ -139,7 +139,7 @@ class _ClienteDetalleScreenState extends State<ClienteDetalleScreen> {
               padding: const EdgeInsets.all(16),
               child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
                 Row(children: [
-                  AvatarIniciales(c.nombre, tamano: 56),
+                  AvatarIniciales(c.nombre, tamano: 56, color: Ind.colorClientes),
                   const SizedBox(width: 14),
                   Expanded(
                     child: Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
@@ -217,6 +217,7 @@ class _VehiculoHistorialState extends State<_VehiculoHistorial> {
             onTap: () => mostrarHoja<void>(context, _FormularioVehiculo(clienteId: widget.cliente.id, vehiculo: v)),
             semanticLabel: 'Editar ${v.placa}',
             icono: iconoVehiculo(v.tipo),
+            colorIcono: Ind.colorClientes,
             titulo: '${v.placa} · ${v.descripcion}',
             subtitulo: '${TiposVehiculo.etiqueta(v.tipo)} · ${formatoKm(v.km)} · último servicio ${v.ultimoServicioTexto}',
             trailing: const Icon(Icons.edit_outlined, size: 20, color: Ind.n400),

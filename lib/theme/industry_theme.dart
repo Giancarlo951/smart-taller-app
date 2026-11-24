@@ -39,6 +39,23 @@ abstract final class Ind {
   static const peligro = Color(0xFFD92D20);
   static const peligroFondo = Color(0xFFFEF3F2);
 
+  // — Colores por módulo (solo para íconos) —
+  // Cada módulo conserva su color en toda la app; el ícono va en color sobre
+  // un mosaico gris claro. Navegación y botones siguen en el azul de la marca.
+  static const colorOrdenes = accent; // azul (marca)
+  static const colorClientes = Color(0xFF7C3AED); // violeta
+  static const colorCitas = Color(0xFF0D9488); // verde azulado
+  static const colorInventario = Color(0xFFEA580C); // naranja
+  static const colorCatalogo = Color(0xFFDB2777); // fucsia
+  static const colorReportes = Color(0xFF4F46E5); // índigo
+  static const colorIngresos = Color(0xFF16A34A); // verde
+  static const colorFacturacion = Color(0xFF0891B2); // cian
+  static const colorAvisos = Color(0xFFD97706); // ámbar
+  static const colorPerfil = Color(0xFF475467); // gris pizarra
+
+  /// Fondo neutro de los mosaicos de ícono.
+  static const fondoIcono = n100;
+
   /// Texto mezclado con transparencia.
   static Color textAt(double opacity) => text.withValues(alpha: opacity);
 

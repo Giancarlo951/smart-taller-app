@@ -4,6 +4,7 @@ import '../modules/avisos/models/aviso.dart';
 import '../modules/catalogo/models/repuesto.dart';
 import '../modules/catalogo/models/servicio.dart';
 import '../modules/ordenes/models/orden.dart';
+import '../theme/industry_theme.dart';
 
 /// Ícono de una categoría del catálogo (servicios y repuestos).
 IconData iconoCategoria(String? categoriaId) => switch (categoriaId) {
@@ -39,4 +40,13 @@ IconData iconoMetodoPago(String metodo) => switch (metodo) {
       MetodosPago.yape || MetodosPago.plin => Icons.phone_iphone_rounded,
       MetodosPago.tarjeta => Icons.credit_card_rounded,
       _ => Icons.payments_rounded,
+    };
+
+/// Color del ícono de cada aviso: el del módulo que lo genera (stock en rojo).
+Color colorAviso(TipoAviso tipo) => switch (tipo) {
+      TipoAviso.stock => Ind.peligro,
+      TipoAviso.orden => Ind.colorOrdenes,
+      TipoAviso.cita => Ind.colorCitas,
+      TipoAviso.pago => Ind.colorIngresos,
+      TipoAviso.facturacion => Ind.colorFacturacion,
     };

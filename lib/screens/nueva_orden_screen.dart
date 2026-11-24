@@ -16,6 +16,7 @@ import '../theme/blueprint.dart';
 import '../theme/industry_theme.dart';
 import '../widgets/comunes.dart';
 import '../widgets/estado_tag.dart';
+import '../widgets/foto_repuesto.dart';
 import '../widgets/iconos_taller.dart';
 import '../widgets/ind_field.dart';
 import '../widgets/ind_page.dart';
@@ -239,6 +240,7 @@ class _NuevaOrdenScreenState extends State<NuevaOrdenScreen> {
                 onTap: _elegirEntrega,
                 semanticLabel: 'Entrega estimada',
                 icono: Icons.event_rounded,
+                colorIcono: Ind.colorCitas,
                 titulo: formatoFechaHora(_entrega ?? sugerida),
                 subtitulo: _entrega == null ? 'Entrega sugerida (tiempo de bahía)' : 'Entrega estimada',
                 trailing: const Icon(Icons.edit_calendar_rounded, color: Ind.n400, size: 20),
@@ -301,8 +303,7 @@ class _NuevaOrdenScreenState extends State<NuevaOrdenScreen> {
               else
                 TarjetaFila(
                   icono: Icons.local_offer_rounded,
-                  colorIcono: Ind.exito,
-                  fondoIcono: Ind.exitoFondo,
+                  colorIcono: Ind.colorIngresos,
                   titulo: _cot.promo!.codigo,
                   subtitulo: _cot.promo!.resumen,
                   trailing: TextButton(onPressed: _cot.quitarPromo, child: const Text('Quitar')),
@@ -349,11 +350,9 @@ class _LineaBorrador extends StatelessWidget {
     final repuesto = linea.esRepuesto ? catalogo.repuesto(linea.refId) : null;
     final servicio = linea.esRepuesto ? null : catalogo.servicios.where((s) => s.id == linea.refId).firstOrNull;
     return TarjetaFila(
-      icono: repuesto != null
-          ? iconoRepuesto(repuesto)
-          : servicio != null
-              ? iconoServicio(servicio)
-              : Icons.build_rounded,
+      inicio: repuesto != null ? FotoRepuesto(repuesto) : null,
+      icono: servicio != null ? iconoServicio(servicio) : Icons.build_rounded,
+      colorIcono: Ind.colorCatalogo,
       titulo: linea.nombre,
       subtitulo: [linea.etiquetaVariante, if (adicionales.isNotEmpty) '+ ${adicionales.join(', ')}'].join(' · '),
       pie: Text(formatoCentimos(linea.totalLineaCentimos), style: Ind.heading(15, color: Ind.accent)),

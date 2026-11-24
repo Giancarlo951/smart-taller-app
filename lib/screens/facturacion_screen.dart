@@ -55,6 +55,7 @@ class _FacturacionScreenState extends State<FacturacionScreen> {
                       onTap: () => _abrir(o),
                       semanticLabel: 'Verificar pago ${o.codigo}',
                       icono: iconoMetodoPago(o.metodoPago ?? ''),
+                      colorIcono: Ind.colorIngresos,
                       titulo: '${o.codigo} · ${o.clienteNombre}',
                       subtitulo: '${o.etiquetaMetodo} · Op. ${o.referenciaPago}',
                       trailing: Text(formatoCentimos(o.totalCentimos), style: Ind.heading(15, color: Ind.accent)),
@@ -110,8 +111,7 @@ class _FacturacionScreenState extends State<FacturacionScreen> {
                     onTap: () => _abrir(o),
                     semanticLabel: 'Comprobante ${o.comprobante!.codigo}',
                     icono: Icons.receipt_long_rounded,
-                    colorIcono: Ind.exito,
-                    fondoIcono: Ind.exitoFondo,
+                    colorIcono: Ind.colorFacturacion,
                     titulo: o.comprobante!.codigo,
                     subtitulo: '${o.comprobante!.razonSocial.isEmpty ? o.clienteNombre : o.comprobante!.razonSocial} · '
                         '${formatoFechaHora(o.comprobante!.emitidoEn)}',

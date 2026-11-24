@@ -13,9 +13,10 @@ import 'perfil_screen.dart';
 import 'reportes_screen.dart';
 
 class _Modulo {
-  const _Modulo(this.icono, this.label, this.nota, this.builder, {this.ruta});
+  const _Modulo(this.icono, this.color, this.label, this.nota, this.builder, {this.ruta});
 
   final IconData icono;
+  final Color color;
   final String label;
   final String nota;
   final Widget Function() builder;
@@ -30,15 +31,15 @@ class MasScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final rol = AppScope.of(context).rol;
     final modulos = [
-      _Modulo(Icons.groups_rounded, 'Clientes', 'Registro e historial', () => const ClientesScreen()),
-      _Modulo(Icons.directions_car_rounded, 'Vehículos', 'Placas y mantenimiento', () => const ClientesScreen()),
-      _Modulo(Icons.handyman_rounded, 'Catálogo', 'Servicios y precios', () => const CatalogoServiciosScreen()),
-      _Modulo(Icons.receipt_long_rounded, 'Facturación', 'Comprobantes SUNAT', () => const FacturacionScreen()),
+      _Modulo(Icons.groups_rounded, Ind.colorClientes, 'Clientes', 'Registro e historial', () => const ClientesScreen()),
+      _Modulo(Icons.directions_car_rounded, Ind.colorClientes, 'Vehículos', 'Placas y mantenimiento', () => const ClientesScreen()),
+      _Modulo(Icons.handyman_rounded, Ind.colorCatalogo, 'Catálogo', 'Servicios y precios', () => const CatalogoServiciosScreen()),
+      _Modulo(Icons.receipt_long_rounded, Ind.colorFacturacion, 'Facturación', 'Comprobantes SUNAT', () => const FacturacionScreen()),
       if (Permisos.puedeVerReportes(rol))
-        _Modulo(Icons.bar_chart_rounded, 'Reportes', 'Indicadores Power BI', () => const ReportesScreen()),
-      _Modulo(Icons.notifications_rounded, 'Notificaciones', 'Avisos del taller', () => const NotificacionesScreen(),
+        _Modulo(Icons.bar_chart_rounded, Ind.colorReportes, 'Reportes', 'Indicadores Power BI', () => const ReportesScreen()),
+      _Modulo(Icons.notifications_rounded, Ind.colorAvisos, 'Notificaciones', 'Avisos del taller', () => const NotificacionesScreen(),
           ruta: NotificacionesScreen.routeName),
-      _Modulo(Icons.person_rounded, 'Perfil', 'Cuenta y accesos', () => const PerfilScreen()),
+      _Modulo(Icons.person_rounded, Ind.colorPerfil, 'Perfil', 'Cuenta y accesos', () => const PerfilScreen()),
     ];
 
     Widget celda(_Modulo m) => BlueprintBox(
@@ -50,7 +51,7 @@ class MasScreen extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          IconoMosaico(m.icono),
+          IconoMosaico(m.icono, color: m.color),
           const SizedBox(height: 12),
           Text(m.label, style: Ind.heading(16)),
           const SizedBox(height: 2),

@@ -4,6 +4,7 @@ import '../state/app_state.dart';
 import '../theme/blueprint.dart';
 import '../theme/industry_theme.dart';
 import 'ind_bottom_bar.dart';
+import 'logo.dart';
 import 'tarjeta_fila.dart';
 
 /// Barra lateral para pantallas anchas (PC): marca arriba, las 5 secciones
@@ -26,29 +27,23 @@ class IndSideBar extends StatelessWidget {
       ),
       child: SafeArea(
         right: false,
-        child: Padding(
+        // En ventanas bajas la barra se desplaza en vez de desbordarse; si
+        // sobra alto, la cuenta queda abajo (SliverFillRemaining + Spacer).
+        child: CustomScrollView(
+          slivers: [
+            SliverFillRemaining(
+              hasScrollBody: false,
+              child: Padding(
           padding: const EdgeInsets.fromLTRB(14, 20, 14, 16),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              // — Marca —
+              // — Logotipo —
               Semantics(
                 header: true,
-                label: 'Smart Taller',
-                excludeSemantics: true,
-                child: Row(children: [
-                  Container(
-                    width: 36,
-                    height: 36,
-                    decoration: BoxDecoration(color: Ind.accent, borderRadius: BorderRadius.circular(10)),
-                    child: const Icon(Icons.build_rounded, color: Colors.white, size: 20),
-                  ),
-                  const SizedBox(width: 10),
-                  Text('Smart', style: Ind.heading(20, height: 1)),
-                  Text('Taller', style: Ind.heading(20, height: 1, color: Ind.accent)),
-                ]),
+                child: const Center(child: LogoSmartTaller(ancho: 172)),
               ),
-              const SizedBox(height: 28),
+              const SizedBox(height: 24),
               for (final tab in AppTab.values) ...[
                 _ItemLateral(tab: tab, activa: tab == actual, onTap: () => onSelect(tab)),
                 const SizedBox(height: 4),
@@ -72,6 +67,9 @@ class IndSideBar extends StatelessWidget {
               ),
             ],
           ),
+              ),
+            ),
+          ],
         ),
       ),
     );

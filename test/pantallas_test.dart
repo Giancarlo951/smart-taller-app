@@ -130,7 +130,10 @@ Future<void> _recorrerTodo(WidgetTester tester, Size tamano) async {
   nav.push(MaterialPageRoute(builder: (_) => OrdenDetalleScreen(ordenId: ot1041.id)));
   await revisar('Detalle OT-1041 lista');
   final cobrar = find.textContaining('Cobrar S/');
-  await tester.scrollUntilVisible(cobrar, 300);
+  // La última lista desplazable es la del detalle (en PC la barra lateral también se desplaza).
+  await tester.scrollUntilVisible(cobrar, 300, scrollable: find.byType(Scrollable).last);
+  await tester.ensureVisible(cobrar);
+  await tester.pumpAndSettle();
   await tester.tap(cobrar);
   await revisar('Cobro');
   await tester.tap(find.text('Yape'));

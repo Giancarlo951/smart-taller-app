@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import '../core/services/supabase_servicio.dart';
 import '../core/utils/validadores.dart';
 import '../core/widgets/mensajes.dart';
-import '../modules/catalogo/services/catalogo_service.dart';
 import '../modules/cuentas/models/rol.dart';
 import '../modules/cuentas/services/cuenta_service.dart';
 import '../state/app_state.dart';
@@ -11,6 +10,7 @@ import '../theme/blueprint.dart';
 import '../theme/industry_theme.dart';
 import '../widgets/estado_tag.dart';
 import '../widgets/ind_field.dart';
+import '../widgets/logo.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -77,13 +77,12 @@ class _LoginScreenState extends State<LoginScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final config = CatalogoService.instancia.catalogo.config;
     // PC: panel azul con la marca a la izquierda y el formulario a la derecha.
     if (MediaQuery.sizeOf(context).width >= Ind.anchoEscritorio) {
       return Scaffold(
         backgroundColor: Ind.card,
         body: Row(children: [
-          Expanded(child: _PanelMarca(lugar: '${config.nombre}, ${config.ciudad}')),
+          const Expanded(child: _PanelMarca()),
           Expanded(
             child: SafeArea(
               child: Center(
@@ -119,57 +118,9 @@ class _LoginScreenState extends State<LoginScreen> {
                 child: ConstrainedBox(
                   constraints: const BoxConstraints(maxWidth: 440),
                   child: _formulario(context, [
-                    // — Marca —
-                    Semantics(
-                      header: true,
-                      label: 'Smart Taller',
-                      excludeSemantics: true,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Container(
-                            width: 40,
-                            height: 40,
-                            decoration: BoxDecoration(
-                              color: Ind.accent,
-                              borderRadius: BorderRadius.circular(Ind.radiusMd),
-                            ),
-                            child: const Icon(Icons.build_rounded, color: Colors.white, size: 22),
-                          ),
-                          const SizedBox(width: 10),
-                          Text('Smart', style: Ind.heading(26, height: 1)),
-                          Text('Taller', style: Ind.heading(26, height: 1, color: Ind.accent)),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      'Gestión de taller · ${config.nombre}, ${config.ciudad}',
-                      textAlign: TextAlign.center,
-                      style: Ind.kicker(),
-                    ),
-                    const SizedBox(height: 24),
-
-                    // — Ilustración —
-                    const _Ilustracion(),
-                    const SizedBox(height: 22),
-                    Text.rich(
-                      TextSpan(
-                        style: Ind.heading(27, height: 1.2),
-                        children: const [
-                          TextSpan(text: 'Tu taller,\n'),
-                          TextSpan(text: 'en tus manos', style: TextStyle(color: Ind.accent)),
-                        ],
-                      ),
-                      textAlign: TextAlign.center,
-                    ),
-                    const SizedBox(height: 6),
-                    Text(
-                      'Órdenes, citas, stock y cobros en un solo lugar',
-                      textAlign: TextAlign.center,
-                      style: Ind.body(14, color: Ind.muted, height: 1.4),
-                    ),
-                    const SizedBox(height: 26),
+                    // — Solo el logotipo sobre el formulario —
+                    const Center(child: LogoSmartTaller(ancho: 200)),
+                    const SizedBox(height: 36),
                   ]),
                 ),
               ),
@@ -267,11 +218,10 @@ class _LoginScreenState extends State<LoginScreen> {
   }
 }
 
-/// Panel azul de la izquierda en PC: marca, ilustración y lema.
+/// Panel azul de la izquierda en PC: el logotipo grande, en una tarjeta
+/// blanca para que se lean sus colores (sobre el azul no se distinguiría).
 class _PanelMarca extends StatelessWidget {
-  const _PanelMarca({required this.lugar});
-
-  final String lugar;
+  const _PanelMarca();
 
   @override
   Widget build(BuildContext context) {
@@ -284,87 +234,22 @@ class _PanelMarca extends StatelessWidget {
         ),
       ),
       padding: const EdgeInsets.all(44),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Semantics(
-            header: true,
-            label: 'Smart Taller',
-            excludeSemantics: true,
-            child: Row(children: [
-              Container(
-                width: 40,
-                height: 40,
-                decoration: BoxDecoration(
-                  color: Colors.white.withValues(alpha: 0.16),
-                  borderRadius: BorderRadius.circular(Ind.radiusMd),
-                ),
-                child: const Icon(Icons.build_rounded, color: Colors.white, size: 22),
-              ),
-              const SizedBox(width: 10),
-              Text('Smart Taller', style: Ind.heading(24, height: 1, color: Colors.white)),
-            ]),
-          ),
-          const Spacer(),
-          const _Ilustracion(sobreAzul: true),
-          const SizedBox(height: 32),
-          Text.rich(
-            TextSpan(
-              style: Ind.heading(38, height: 1.15, color: Colors.white),
-              children: const [
-                TextSpan(text: 'Tu taller,\n'),
-                TextSpan(text: 'en tus manos', style: TextStyle(color: Ind.a300)),
-              ],
-            ),
-          ),
-          const SizedBox(height: 10),
-          Text(
-            'Órdenes, citas, stock y cobros en un solo lugar',
-            style: Ind.body(16, color: Colors.white.withValues(alpha: 0.82), height: 1.4),
-          ),
-          const Spacer(),
-          Text('Gestión de taller · $lugar', style: Ind.body(13, color: Colors.white.withValues(alpha: 0.6))),
-        ],
-      ),
-    );
-  }
-}
-
-/// Círculos con el ícono del taller (sin imágenes externas). [sobreAzul]:
-/// versión clara para el panel azul de PC.
-class _Ilustracion extends StatelessWidget {
-  const _Ilustracion({this.sobreAzul = false});
-
-  final bool sobreAzul;
-
-  @override
-  Widget build(BuildContext context) {
-    final blanco = Colors.white;
-    return ExcludeSemantics(
-      child: Align(
-        alignment: sobreAzul ? Alignment.centerLeft : Alignment.center,
-        child: Container(
-          width: 168,
-          height: 168,
-          decoration: BoxDecoration(color: sobreAzul ? blanco.withValues(alpha: 0.08) : Ind.a100, shape: BoxShape.circle),
-          alignment: Alignment.center,
-          child: Container(
-            width: 122,
-            height: 122,
-            decoration: BoxDecoration(color: sobreAzul ? blanco.withValues(alpha: 0.12) : Ind.a200, shape: BoxShape.circle),
-            alignment: Alignment.center,
+      child: LayoutBuilder(
+        builder: (context, c) {
+          // El logo crece con el panel, hasta 380 px de ancho.
+          final ancho = (c.maxWidth * 0.62).clamp(220.0, 380.0);
+          return Center(
             child: Container(
-              width: 80,
-              height: 80,
+              padding: EdgeInsets.symmetric(horizontal: ancho * 0.16, vertical: ancho * 0.14),
               decoration: BoxDecoration(
-                color: sobreAzul ? blanco : Ind.accent,
-                shape: BoxShape.circle,
-                boxShadow: Ind.shadowMd,
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(32),
+                boxShadow: Ind.shadowLg,
               ),
-              child: Icon(Icons.car_repair_rounded, color: sobreAzul ? Ind.accent : blanco, size: 44),
+              child: Semantics(header: true, child: LogoSmartTaller(ancho: ancho)),
             ),
-          ),
-        ),
+          );
+        },
       ),
     );
   }

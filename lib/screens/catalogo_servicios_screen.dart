@@ -127,8 +127,8 @@ class _CatalogoServiciosScreenState extends State<CatalogoServiciosScreen> {
                 TarjetaFila(
                   onTap: puedeEditar ? () => mostrarHoja<void>(context, FormularioServicio(servicio: s)) : null,
                   icono: iconoServicio(s),
-                  colorIcono: s.disponible ? Ind.accent : Ind.n500,
-                  fondoIcono: s.disponible ? Ind.a100 : Ind.n100,
+                  colorIcono: s.disponible ? Ind.colorCatalogo : Ind.n400,
+
                   titulo: s.nombre,
                   subtitulo: [for (final p in s.precios.values) '${p.etiqueta} ${formatoCentimos(s.aplicarDescuento(p.precioCentimos))}']
                       .join(' · '),

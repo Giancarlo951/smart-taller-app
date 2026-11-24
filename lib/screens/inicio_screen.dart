@@ -46,14 +46,14 @@ class _InicioScreenState extends State<InicioScreen> {
     final nombre = (app.cuenta.perfil?.nombre ?? '').trim();
     final primerNombre = nombre.isEmpty ? app.rol.label : nombre.split(RegExp(r'\s+')).first;
 
-    final accesos = <(IconData, String, VoidCallback)>[
-      (Icons.person_add_alt_1_rounded, 'Registrar cliente', () => abrirFormularioCliente(context)),
-      (Icons.event_available_rounded, 'Nueva cita', () => app.irATab(AppTab.citas)),
-      (Icons.inventory_2_rounded, 'Salida de almacén', () => app.irATab(AppTab.stock)),
+    final accesos = <(IconData, Color, String, VoidCallback)>[
+      (Icons.person_add_alt_1_rounded, Ind.colorClientes, 'Registrar cliente', () => abrirFormularioCliente(context)),
+      (Icons.event_available_rounded, Ind.colorCitas, 'Nueva cita', () => app.irATab(AppTab.citas)),
+      (Icons.inventory_2_rounded, Ind.colorInventario, 'Salida de almacén', () => app.irATab(AppTab.stock)),
       if (Permisos.puedeVerReportes(app.rol))
-        (Icons.bar_chart_rounded, 'Ver reportes', () => _push(const ReportesScreen()))
+        (Icons.bar_chart_rounded, Ind.colorReportes, 'Ver reportes', () => _push(const ReportesScreen()))
       else
-        (Icons.groups_rounded, 'Clientes', () => _push(const ClientesScreen())),
+        (Icons.groups_rounded, Ind.colorClientes, 'Clientes', () => _push(const ClientesScreen())),
     ];
 
     return StreamBuilder<List<Orden>>(
@@ -89,9 +89,9 @@ class _InicioScreenState extends State<InicioScreen> {
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        for (final (i, (icono, label, accion)) in accesos.indexed) ...[
+                        for (final (i, (icono, color, label, accion)) in accesos.indexed) ...[
                           if (i > 0) const SizedBox(width: 10),
-                          Expanded(child: _Acceso(icono: icono, label: label, onTap: accion)),
+                          Expanded(child: _Acceso(icono: icono, color: color, label: label, onTap: accion)),
                         ],
                       ],
                     ),
@@ -110,6 +110,12 @@ class _InicioScreenState extends State<InicioScreen> {
                     Icons.event_rounded,
                     Icons.warning_amber_rounded,
                     Icons.payments_rounded,
+                  ],
+                  colores: const [
+                    Ind.colorOrdenes,
+                    Ind.colorCitas,
+                    Ind.peligro,
+                    Ind.colorIngresos,
                   ],
                 ),
                 Column(
@@ -147,11 +153,54 @@ class _Banner extends StatelessWidget {
   final int citasHoy;
   final VoidCallback onVerOrdenes;
 
+  /// Engranaje de 176 px corrido 34 px fuera del borde: se ven ~142 px, y el
+  /// texto deja 150 px libres a la derecha.
+  static const _ladoEngranaje = 176.0;
+  static const _fueraEngranaje = 34.0;
+  static const _reservaEngranaje = 150.0;
+
   @override
   Widget build(BuildContext context) {
     final blanco = Colors.white.withValues(alpha: 0.82);
+    final textos = Padding(
+      padding: const EdgeInsets.fromLTRB(18, 18, _reservaEngranaje, 18),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text('Resumen del taller', style: Ind.heading(19, color: Colors.white)),
+          const SizedBox(height: 2),
+          Text(fecha, style: Ind.body(12.5, color: blanco, height: 1.3)),
+          const SizedBox(height: 10),
+          Text(
+            '${plural(enTaller, 'vehículo', 'vehículos')} en el taller · '
+            '${plural(citasHoy, 'cita', 'citas')} hoy',
+            style: Ind.body(13.5, color: Colors.white, height: 1.35),
+          ),
+          const SizedBox(height: 14),
+          Material(
+            color: Colors.white,
+            borderRadius: BorderRadius.circular(20),
+            child: InkWell(
+              onTap: onVerOrdenes,
+              borderRadius: BorderRadius.circular(20),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text('Ver órdenes', style: Ind.heading(13, color: Ind.accent)),
+                    const SizedBox(width: 4),
+                    const Icon(Icons.arrow_forward_rounded, size: 16, color: Ind.accent),
+                  ],
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    );
+
     return Container(
-      padding: const EdgeInsets.fromLTRB(18, 18, 14, 18),
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(Ind.radiusXl - 4),
         gradient: const LinearGradient(
@@ -161,55 +210,40 @@ class _Banner extends StatelessWidget {
         ),
         boxShadow: Ind.shadowMd,
       ),
-      child: Row(
+      // El engranaje es más grande que el banner y queda cortado por sus bordes.
+      clipBehavior: Clip.antiAlias,
+      child: Stack(
         children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text('Resumen del taller', style: Ind.heading(19, color: Colors.white)),
-                const SizedBox(height: 2),
-                Text(fecha, style: Ind.body(12.5, color: blanco, height: 1.3)),
-                const SizedBox(height: 10),
-                Text(
-                  '${plural(enTaller, 'vehículo', 'vehículos')} en el taller · '
-                  '${plural(citasHoy, 'cita', 'citas')} hoy',
-                  style: Ind.body(13.5, color: Colors.white, height: 1.35),
-                ),
-                const SizedBox(height: 14),
-                Material(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(20),
-                  child: InkWell(
-                    onTap: onVerOrdenes,
-                    borderRadius: BorderRadius.circular(20),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 8),
-                      child: Row(
-                        mainAxisSize: MainAxisSize.min,
-                        children: [
-                          Text('Ver órdenes', style: Ind.heading(13, color: Ind.accent)),
-                          const SizedBox(width: 4),
-                          const Icon(Icons.arrow_forward_rounded, size: 16, color: Ind.accent),
-                        ],
+          textos,
+          Positioned(
+            top: 0,
+            bottom: 0,
+            right: -_fueraEngranaje,
+            child: ExcludeSemantics(
+              child: Center(
+                child: SizedBox.square(
+                  dimension: _ladoEngranaje,
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      // Centro azul claro detrás de la llave y el destornillador.
+                      FractionallySizedBox(
+                        widthFactor: 0.66,
+                        heightFactor: 0.66,
+                        child: DecoratedBox(
+                          decoration: BoxDecoration(color: Ind.a500.withValues(alpha: 0.85), shape: BoxShape.circle),
+                        ),
                       ),
-                    ),
+                      Image.asset(
+                        'assets/marca/engranaje.png',
+                        fit: BoxFit.contain,
+                        filterQuality: FilterQuality.high,
+                        errorBuilder: (_, _, _) => const SizedBox.shrink(),
+                      ),
+                    ],
                   ),
                 ),
-              ],
-            ),
-          ),
-          const SizedBox(width: 10),
-          Container(
-            width: 92,
-            height: 92,
-            decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.14), shape: BoxShape.circle),
-            alignment: Alignment.center,
-            child: Container(
-              width: 66,
-              height: 66,
-              decoration: BoxDecoration(color: Colors.white.withValues(alpha: 0.18), shape: BoxShape.circle),
-              child: const Icon(Icons.car_repair_rounded, size: 38, color: Colors.white),
+              ),
             ),
           ),
         ],
@@ -220,9 +254,10 @@ class _Banner extends StatelessWidget {
 
 /// Acceso rápido: ícono en mosaico blanco con la etiqueta debajo.
 class _Acceso extends StatelessWidget {
-  const _Acceso({required this.icono, required this.label, required this.onTap});
+  const _Acceso({required this.icono, required this.color, required this.label, required this.onTap});
 
   final IconData icono;
+  final Color color;
   final String label;
   final VoidCallback onTap;
 
@@ -249,7 +284,7 @@ class _Acceso extends StatelessWidget {
                     boxShadow: Ind.shadowSm,
                   ),
                   alignment: Alignment.center,
-                  child: Icon(icono, color: Ind.accent, size: 28),
+                  child: Icon(icono, color: color, size: 28),
                 ),
                 const SizedBox(height: 8),
                 Text(

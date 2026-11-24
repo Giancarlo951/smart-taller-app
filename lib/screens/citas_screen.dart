@@ -120,9 +120,9 @@ class _CitasScreenState extends State<CitasScreen> {
                   inicio: Container(
                     width: 58,
                     height: 48,
-                    decoration: BoxDecoration(color: Ind.a100, borderRadius: BorderRadius.circular(Ind.radiusMd)),
+                    decoration: BoxDecoration(color: Ind.fondoIcono, borderRadius: BorderRadius.circular(Ind.radiusMd)),
                     alignment: Alignment.center,
-                    child: Text(c.hora, style: Ind.heading(15, color: Ind.accent)),
+                    child: Text(c.hora, style: Ind.heading(15, color: Ind.colorCitas)),
                   ),
                   titulo: c.servicio,
                   subtitulo: '${c.placa} · ${c.cliente}',
