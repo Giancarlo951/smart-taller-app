@@ -1,0 +1,172 @@
+{
+  "orden": {
+    "id": "40e6fb93-edd9-44cf-97e6-566b68a6b77f",
+    "km": 80000,
+    "placa": "V2K-841",
+    "codigo": "OT-1043",
+    "estado": "entregado",
+    "lineas": [
+      {
+        "tipo": "repuesto",
+        "nombre": "Aceite",
+        "ref_id": "LUB-1040",
+        "cantidad": 4,
+        "variante": "",
+        "adicionales": [],
+        "total_centimos": 14800,
+        "precio_unitario_centimos": 3700
+      },
+      {
+        "tipo": "servicio",
+        "nombre": "Cambio de aceite",
+        "ref_id": "cambio-aceite",
+        "cantidad": 1,
+        "variante": "auto",
+        "adicionales": [],
+        "total_centimos": 4000,
+        "precio_unitario_centimos": 4000
+      }
+    ],
+    "moneda": "PEN",
+    "motivo": "Mantenimiento",
+    "mecanico": "",
+    "telefono": "964112480",
+    "vehiculo": "Toyota Yaris 2019",
+    "historial": [
+      {
+        "por": "Mecánico",
+        "nota": "",
+        "fecha": "2026-11-24T04:34:05.991+00:00",
+        "estado": "recepcion"
+      },
+      {
+        "por": "X",
+        "nota": "",
+        "fecha": "2026-11-24T04:34:06.91+00:00",
+        "estado": "diagnostico"
+      },
+      {
+        "por": "X",
+        "nota": "",
+        "fecha": "2026-11-24T04:34:06.91+00:00",
+        "estado": "repuestos"
+      },
+      {
+        "por": "X",
+        "nota": "",
+        "fecha": "2026-11-24T04:34:07.498+00:00",
+        "estado": "reparacion"
+      },
+      {
+        "por": "X",
+        "nota": "",
+        "fecha": "2026-11-24T04:34:08.048+00:00",
+        "estado": "listo"
+      },
+      {
+        "por": "X",
+        "nota": "",
+        "fecha": "2026-11-24T04:34:08.378+00:00",
+        "estado": "entregado"
+      }
+    ],
+    "pagado_en": "2026-11-24T04:34:08.237+00:00",
+    "cliente_id": "",
+    "creado_por": "22222222-2222-2222-2222-222222222222",
+    "created_at": "2026-11-24T04:34:05.991+00:00",
+    "updated_at": "2026-11-24T04:34:08.378+00:00",
+    "a_domicilio": false,
+    "comprobante": {
+      "tipo": "boleta",
+      "serie": "B001",
+      "codigo": "B001-00248",
+      "numero": 248,
+      "documento": "",
+      "emitido_en": "2026-11-24T04:34:08.263+00:00",
+      "estado_sunat": "aceptado",
+      "igv_centimos": 2581,
+      "razon_social": "Rosa Paucar",
+      "total_centimos": 16920,
+      "op_gravada_centimos": 14339
+    },
+    "diagnostico": "Pastillas gastadas al 80 %",
+    "estado_pago": "pagado",
+    "metodo_pago": "yape",
+    "codigo_promo": "AUTOSIGLO10",
+    "tipo_vehiculo": "auto",
+    "cliente_nombre": "Rosa Paucar",
+    "total_centimos": 16920,
+    "referencia_pago": "123456",
+    "entrega_estimada": null,
+    "recargo_centimos": 0,
+    "stock_descontado": true,
+    "creado_por_nombre": "Mecánico",
+    "documento_cliente": "",
+    "subtotal_centimos": 18800,
+    "descuento_centimos": 1880
+  },
+  "crear": {
+    "id": "40e6fb93-edd9-44cf-97e6-566b68a6b77f",
+    "km": 80000,
+    "placa": "V2K-841",
+    "codigo": "OT-1043",
+    "estado": "recepcion",
+    "lineas": [
+      {
+        "tipo": "repuesto",
+        "nombre": "Aceite",
+        "ref_id": "LUB-1040",
+        "cantidad": 4,
+        "variante": "",
+        "adicionales": [],
+        "total_centimos": 14800,
+        "precio_unitario_centimos": 3700
+      },
+      {
+        "tipo": "servicio",
+        "nombre": "Cambio de aceite",
+        "ref_id": "cambio-aceite",
+        "cantidad": 1,
+        "variante": "auto",
+        "adicionales": [],
+        "total_centimos": 4000,
+        "precio_unitario_centimos": 4000
+      }
+    ],
+    "moneda": "PEN",
+    "motivo": "Mantenimiento",
+    "mecanico": "",
+    "telefono": "964112480",
+    "vehiculo": "Toyota Yaris 2019",
+    "historial": [
+      {
+        "por": "Mecánico",
+        "nota": "",
+        "fecha": "2026-11-24T04:34:05.991+00:00",
+        "estado": "recepcion"
+      }
+    ],
+    "pagado_en": null,
+    "cliente_id": "",
+    "creado_por": "22222222-2222-2222-2222-222222222222",
+    "created_at": "2026-11-24T04:34:05.991+00:00",
+    "updated_at": "2026-11-24T04:34:05.991+00:00",
+    "a_domicilio": false,
+    "comprobante": null,
+    "diagnostico": "",
+    "estado_pago": "por_cobrar",
+    "metodo_pago": null,
+    "codigo_promo": "AUTOSIGLO10",
+    "tipo_vehiculo": "auto",
+    "cliente_nombre": "Rosa Paucar",
+    "total_centimos": 16920,
+    "referencia_pago": null,
+    "entrega_estimada": null,
+    "recargo_centimos": 0,
+    "stock_descontado": false,
+    "creado_por_nombre": "Mecánico",
+    "documento_cliente": "",
+    "subtotal_centimos": 18800,
+    "descuento_centimos": 1880
+  }
+}

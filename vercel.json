@@ -1,0 +1,17 @@
+{
+  "$schema": "https://openapi.vercel.sh/vercel.json",
+  "framework": null,
+  "installCommand": "if [ -d flutter ]; then echo 'Flutter en caché'; else git clone https://github.com/flutter/flutter.git -b 3.47.4 --depth 1; fi && flutter/bin/flutter config --no-analytics && flutter/bin/flutter --version",
+  "buildCommand": "bash scripts/vercel_compilar.sh",
+  "outputDirectory": "build/web",
+  "headers": [
+    {
+      "source": "/(.*)",
+      "headers": [{ "key": "X-Content-Type-Options", "value": "nosniff" }]
+    },
+    {
+      "source": "/(index.html|flutter_service_worker.js|flutter_bootstrap.js|version.json)",
+      "headers": [{ "key": "Cache-Control", "value": "no-cache" }]
+    }
+  ]
+}

@@ -1,0 +1,12 @@
+{
+  "name": "smart-taller-pruebas-sql",
+  "private": true,
+  "type": "module",
+  "description": "Prueba supabase/esquema.sql en Postgres (PGlite) sin crear un proyecto de Supabase.",
+  "scripts": {
+    "test": "node probar_esquema.mjs"
+  },
+  "devDependencies": {
+    "@electric-sql/pglite": "0.5.17"
+  }
+}
