@@ -9,8 +9,8 @@ import '../models/servicio.dart';
 /// ejemplo, no reales. Panel → Perfil → "Cargar datos de ejemplo" los sube.
 abstract final class CatalogoLocal {
   static const config = ConfigTaller(
-    nombre: 'Auto Siglo',
-    razonSocial: 'Auto Siglo E.I.R.L. (ejemplo)',
+    nombre: 'Smart Taller',
+    razonSocial: 'Smart Taller E.I.R.L. (ejemplo)',
     ruc: '20601234565',
     ciudad: 'Huancayo',
     direccion: 'Av. Ferrocarril 1250, Huancayo',

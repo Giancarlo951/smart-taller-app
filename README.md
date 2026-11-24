@@ -1,6 +1,6 @@
-# Smart Taller – app interna del personal (Auto Siglo)
+# Smart Taller – app interna del personal del taller
 
-App Flutter para el personal administrativo del taller **Auto Siglo** (Huancayo): órdenes de trabajo,
+App Flutter para el personal administrativo del taller **Smart Taller** (Huancayo): órdenes de trabajo,
 inventario, citas, clientes y vehículos, cobros, facturación electrónica y reportes.
 
 La **lógica** es la de la app de referencia *Pizzas Dorgis* (`C:\flutter\parcial`), llevada a la

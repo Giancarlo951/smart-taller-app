@@ -14,7 +14,7 @@ class PerfilPersonal {
     this.inicioSesion,
   });
 
-  static const tallerPorDefecto = 'Auto Siglo · Huancayo';
+  static const tallerPorDefecto = 'Smart Taller · Huancayo';
 
   final String uid;
   final String nombre;

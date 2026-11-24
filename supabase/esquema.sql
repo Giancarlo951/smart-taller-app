@@ -17,7 +17,7 @@ create table public.personal (
   id uuid primary key references auth.users (id) on delete cascade,
   nombre text not null default '',
   rol text not null check (rol in ('jefe_taller', 'mecanico', 'administracion')),
-  taller text not null default 'Auto Siglo · Huancayo',
+  taller text not null default 'Smart Taller · Huancayo',
   activo boolean not null default true,
   favoritos text[] not null default '{}',
   -- Borrador de la orden que se está armando (líneas en JSON).
